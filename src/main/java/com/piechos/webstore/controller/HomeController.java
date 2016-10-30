@@ -1,8 +1,5 @@
 package com.piechos.webstore.controller;
 
-/**
- * Created by Mati on 24.10.2016.
- */
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
