@@ -103,21 +103,21 @@ public class Product {
 
     @Override
     public boolean equals(Object object) {
-        if(this == object) {
+        if (this == object) {
             return true;
         }
-        if(object == null) {
+        if (object == null) {
             return false;
         }
-        if(getClass() != object.getClass()) {
+        if (getClass() != object.getClass()) {
             return false;
         }
-        Product other = (Product)object;
-        if(productId == null) {
-            if(other.productId != null) {
+        Product other = (Product) object;
+        if (productId == null) {
+            if (other.productId != null) {
                 return false;
             }
-        } else if(!productId.equals(other.productId)) {
+        } else if (!productId.equals(other.productId)) {
             return false;
         }
         return true;
@@ -127,7 +127,7 @@ public class Product {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result +((productId == null) ? 0 : productId.hashCode());
+        result = prime * result + ((productId == null) ? 0 : productId.hashCode());
         return result;
     }
 

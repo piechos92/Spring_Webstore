@@ -15,9 +15,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void processOrder(String productId, int count) {
         Product productById = productRepository.getProductById(productId);
-        if(productById.getUnitsInStock() < count) {
+        if (productById.getUnitsInStock() < count) {
             throw new IllegalArgumentException("Zbyt mało towaru. Obecna liczba sztuk w magazynie:" +
-                productById.getUnitsInStock());
+                    productById.getUnitsInStock());
         }
         productById.setUnitsInStock(productById.getUnitsInStock() - count);
     }

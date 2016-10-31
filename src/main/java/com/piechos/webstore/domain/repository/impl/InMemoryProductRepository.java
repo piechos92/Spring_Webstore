@@ -1,6 +1,5 @@
 package com.piechos.webstore.domain.repository.impl;
 
-
 import com.piechos.webstore.domain.Product;
 import com.piechos.webstore.domain.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
@@ -48,13 +47,13 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public Product getProductById(String productId) {
         Product productById = null;
-        for(Product product : listOfProducts) {
-            if(product != null && product.getProductId() != null && product.getProductId().equals(productId)) {
+        for (Product product : listOfProducts) {
+            if (product != null && product.getProductId() != null && product.getProductId().equals(productId)) {
                 productById = product;
                 break;
             }
         }
-        if(productById == null) {
+        if (productById == null) {
             throw new IllegalArgumentException("Brak produktu o wskazanym id: " + productId);
         }
         return productById;
