@@ -70,6 +70,17 @@ public class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
+    public List<Product> getProductsByManufacturer(String manufacturer) {
+        List<Product> productsByManufacturer = new ArrayList<>();
+        for(Product product : listOfProducts) {
+            if(manufacturer.equalsIgnoreCase(product.getManufacturer())) {
+                productsByManufacturer.add(product);
+            }
+        }
+        return productsByManufacturer;
+    }
+
+    @Override
     public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
         Set<Product> productsByBrand = new HashSet<>();
         Set<Product> productsByCategory = new HashSet<>();
@@ -90,5 +101,16 @@ public class InMemoryProductRepository implements ProductRepository {
         }
         productsByCategory.retainAll(productsByBrand);
         return productsByCategory;
+    }
+
+    @Override
+    public Set<Product> getProductsByPriceFilter(BigDecimal low, BigDecimal high) {
+        Set<Product> productsByPrice = new HashSet<>();
+        for(Product product : listOfProducts) {
+            if(product.getUnitPrice().compareTo(low) >= 0 && product.getUnitPrice().compareTo(high) <= 0) {
+                productsByPrice.add(product);
+            }
+        }
+        return productsByPrice;
     }
 }

@@ -6,6 +6,7 @@ import com.piechos.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,8 +33,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsByManufacturer(String manufacturer) {
+        return productRepository.getProductsByManufacturer(manufacturer);
+    }
+
+    @Override
     public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
         return productRepository.getProductsByFilter(filterParams);
+    }
+
+    @Override
+    public Set<Product> getProductsByPriceFilter(Map<String, List<String>> priceParams) {
+        BigDecimal low = new BigDecimal(priceParams.get("low").get(0));
+        BigDecimal high = new BigDecimal(priceParams.get("high").get(0));
+        return productRepository.getProductsByPriceFilter(low, high);
     }
 
 }
