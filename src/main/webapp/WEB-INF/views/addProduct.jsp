@@ -63,18 +63,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-2 col-lg-2" for="unitsInOrder">Liczba zamawianych sztuk</label>
-                        <div class="col-lg-10">
-                            <form:input id="unitsInOrder" path="unitsInOrder" type="text" class="form:input-large"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="discontinued">Wycofany</label>
-                        <div class="col-lg-10">
-                            <form:checkbox id="discontinued" path="discontinued" rows="2"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label col-lg-2" for="condition">Stan</label>
                         <div class="col-lg-10">
                             <form:radiobutton path="condition" value="New"/>Nowy
