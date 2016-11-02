@@ -2,7 +2,6 @@ package com.piechos.webstore.service;
 
 import com.piechos.webstore.domain.Product;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,4 +19,8 @@ public interface ProductService {
     Set<Product> getProductsByFilter(Map<String, List<String>> filterParams);
 
     Set<Product> getProductsByPriceFilter(Map<String, List<String>> priceParams);
+
+    List<Product> filterProducts(String category, Map<String, List<String>> priceParams, String manufacturer);
+
+    void addProduct(Product product);
 }

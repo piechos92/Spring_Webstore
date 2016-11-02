@@ -20,4 +20,6 @@ public interface ProductRepository {
     Set<Product> getProductsByFilter(Map<String, List<String>> filterParams);
 
     Set<Product> getProductsByPriceFilter(BigDecimal low, BigDecimal high);
+
+    void addProduct(Product product);
 }

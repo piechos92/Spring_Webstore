@@ -5,10 +5,7 @@ import com.piechos.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -54,12 +51,20 @@ public class ProductController {
     public String filterProducts(@PathVariable("category") String productCategory,
                                  @MatrixVariable(pathVar = "price")Map<String, List<String>> priceParams,
                                  @RequestParam("manufacturer") String manufacturer, Model model) {
-        List<Product> productsByCategory = productService.getProductsByCategory(productCategory);
-        List<Product> productsByPrice = new ArrayList<>(productService.getProductsByPriceFilter(priceParams));
-        List<Product> productsByManufacturer = productService.getProductsByManufacturer(manufacturer);
-        productsByCategory.retainAll(productsByPrice);
-        productsByCategory.retainAll(productsByManufacturer);
-        model.addAttribute("products", productsByCategory);
+        model.addAttribute("products", productService.filterProducts(productCategory, priceParams, manufacturer));
         return "products";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String getAddNewProductForm(Model model) {
+        Product newProduct = new Product();
+        model.addAttribute("newProduct", newProduct);
+        return "addProduct";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
+        productService.addProduct(newProduct);
+        return "redirect:/products";
     }
 }

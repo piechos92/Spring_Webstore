@@ -11,9 +11,13 @@ public class Product {
     private String manufacturer;
     private String category;
     private long unitsInStock;
-    private long unitInOrder;
+    private long unitsInOrder;
     private boolean discontinued;
     private String condition;
+
+    public Product() {
+        super();
+    }
 
     public Product(String productId, String name, BigDecimal unitPrice) {
         this.productId = productId;
@@ -77,12 +81,12 @@ public class Product {
         this.unitsInStock = unitsInStock;
     }
 
-    public long getUnitInOrder() {
-        return unitInOrder;
+    public long getUnitsInOrder() {
+        return unitsInOrder;
     }
 
-    public void setUnitInOrder(long unitInOrder) {
-        this.unitInOrder = unitInOrder;
+    public void setUnitsInOrder(long unitInOrder) {
+        this.unitsInOrder = unitInOrder;
     }
 
     public boolean isDiscontinued() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,4 +50,19 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductsByPriceFilter(low, high);
     }
 
+    @Override
+    public
+    List<Product> filterProducts(String category, Map<String, List<String>> priceParams, String manufacturer) {
+        List<Product> productsByCategory = this.getProductsByCategory(category);
+        List<Product> productsByPrice = new ArrayList<>(this.getProductsByPriceFilter(priceParams));
+        List<Product> productsByManufacturer = this.getProductsByManufacturer(manufacturer);
+        productsByCategory.retainAll(productsByPrice);
+        productsByCategory.retainAll(productsByManufacturer);
+        return productsByCategory;
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        productRepository.addProduct(product);
+    }
 }
