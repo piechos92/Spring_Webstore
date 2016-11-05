@@ -9,7 +9,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.*;
 
 @Controller
@@ -38,7 +41,7 @@ public class ProductController {
     }
 
     @RequestMapping("/filter/{ByCriteria}")
-    public String getProductsByFilter(@MatrixVariable(pathVar = "ByCriteria")Map<String, List<String>> filterParams,
+    public String getProductsByFilter(@MatrixVariable(pathVar = "ByCriteria") Map<String, List<String>> filterParams,
                                       Model model) {
         model.addAttribute("products", productService.getProductsByFilter(filterParams));
         return "products";
@@ -52,7 +55,7 @@ public class ProductController {
 
     @RequestMapping("/{category}/{price}")
     public String filterProducts(@PathVariable("category") String productCategory,
-                                 @MatrixVariable(pathVar = "price")Map<String, List<String>> priceParams,
+                                 @MatrixVariable(pathVar = "price") Map<String, List<String>> priceParams,
                                  @RequestParam("manufacturer") String manufacturer, Model model) {
         model.addAttribute("products", productService.filterProducts(productCategory, priceParams, manufacturer));
         return "products";
@@ -66,11 +69,23 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result) {
+    public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, BindingResult result,
+                                           HttpServletRequest request) {
         String[] suppressedFields = result.getSuppressedFields();
-        if(suppressedFields.length > 0) {
+        if (suppressedFields.length > 0) {
             throw new RuntimeException("Próba wiązania niedozwolonych pól: " +
                     StringUtils.arrayToCommaDelimitedString(suppressedFields));
+        }
+        MultipartFile productImage = newProduct.getProductImage();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        if (productImage != null && !productImage.isEmpty()) {
+            try {
+                File file = new File(rootDirectory + "resources/images/" + newProduct.getProductId() +
+                        ".jpeg");
+                productImage.transferTo(file);
+            } catch (Exception e) {
+                throw new RuntimeException("Niepowodzenie podczas próby zapisu obrazka produktu", e);
+            }
         }
         productService.addProduct(newProduct);
         return "redirect:/products";
@@ -78,6 +93,7 @@ public class ProductController {
 
     @InitBinder
     public void initialiseBinder(WebDataBinder binder) {
-        binder.setDisallowedFields("unitsInOrder", "discontinued");
+        binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category",
+                "unitsInStock", "condition", "productImage");
     }
 }
