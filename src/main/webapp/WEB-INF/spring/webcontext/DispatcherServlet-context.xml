@@ -12,6 +12,7 @@
     <mvc:resources mapping="/resource/**" location="/resources/"/>
     <mvc:interceptors>
         <bean class="com.piechos.webstore.interceptor.PerformanceMonitorInterceptor"/>
+        <bean class="com.piechos.webstore.interceptor.AuditingInterceptor"/>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language"/>
         </bean>
@@ -64,6 +65,6 @@
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="nl"/>
+        <property name="defaultLocale" value="pl"/>
     </bean>
 </beans>
