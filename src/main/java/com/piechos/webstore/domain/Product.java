@@ -1,9 +1,13 @@
 package com.piechos.webstore.domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
+@XmlRootElement
 public class Product {
 
     private String productId;
@@ -16,7 +20,9 @@ public class Product {
     private long unitsInOrder;
     private boolean discontinued;
     private String condition;
+    @JsonIgnore
     private MultipartFile productImage;
+    @JsonIgnore
     private MultipartFile productManual;
 
     public Product() {
@@ -109,6 +115,7 @@ public class Product {
         this.condition = condition;
     }
 
+    @XmlTransient
     public MultipartFile getProductImage() {
         return productImage;
     }
@@ -117,6 +124,7 @@ public class Product {
         this.productImage = productImage;
     }
 
+    @XmlTransient
     public MultipartFile getProductManual() {
         return productManual;
     }
