@@ -2,6 +2,7 @@ package com.piechos.webstore.domain.repository.impl;
 
 import com.piechos.webstore.domain.Product;
 import com.piechos.webstore.domain.repository.ProductRepository;
+import com.piechos.webstore.exception.ProductNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -53,7 +54,7 @@ public class InMemoryProductRepository implements ProductRepository {
             }
         }
         if (productById == null) {
-            throw new IllegalArgumentException("Brak produktu o wskazanym id: " + productId);
+            throw new ProductNotFoundException(productId);
         }
         return productById;
     }

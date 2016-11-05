@@ -2,6 +2,7 @@ package com.piechos.webstore.controller;
 
 import com.piechos.webstore.domain.Product;
 import com.piechos.webstore.exception.NoProductsFoundUnderCategoryException;
+import com.piechos.webstore.exception.ProductNotFoundException;
 import com.piechos.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -106,4 +108,15 @@ public class ProductController {
         binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category",
                 "unitsInStock", "condition", "productImage", "productManual");
     }
+
+    @ExceptionHandler
+    public ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("invalidProductId", exception.getProductId());
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL()+"?"+req.getQueryString());
+        mav.setViewName("productNotFound");
+        return mav;
+    }
+
 }
