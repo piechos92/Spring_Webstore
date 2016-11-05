@@ -24,19 +24,30 @@
             <h3>${product.name}</h3>
             <p>${product.description}</p>
             <p>
-                <strong>Kod produktu: </strong><span class="label label-warning">${product.productId}</span>
+                <strong>
+                    <spring:message code="product.p.productId"/>:
+                </strong>
+                <span class="label label-warning">${product.productId}</span>
             </p>
             <p>
-                <strong>Producent</strong>: ${product.manufacturer}
+                <strong>
+                    <spring:message code="product.p.manufacturer"/>
+                </strong>: ${product.manufacturer}
             </p>
             <p>
-                <strong>Kategoria</strong>: ${product.category}
+                <strong>
+                    <spring:message code="product.p.category"/>
+                </strong>: ${product.category}
             </p>
             <p>
-                <strong>Stan</strong>: ${product.condition}
+                <strong>
+                    <spring:message code="product.p.condition"/>
+                </strong>: ${product.condition}
             </p>
             <p>
-                <strong>Liczba sztuk w magazynie</strong>: ${product.unitsInStock}
+                <strong>
+                    <spring:message code="product.p.unitsInStock"/>
+                </strong>: ${product.unitsInStock}
             </p>
             <h4>${product.unitPrice} PLN</h4>
             <p>

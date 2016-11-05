@@ -106,7 +106,7 @@ public class ProductController {
     @InitBinder
     public void initialiseBinder(WebDataBinder binder) {
         binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category",
-                "unitsInStock", "condition", "productImage", "productManual");
+                "unitsInStock", "condition", "productImage", "productManual", "language");
     }
 
     @ExceptionHandler
