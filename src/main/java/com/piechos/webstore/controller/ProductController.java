@@ -1,6 +1,7 @@
 package com.piechos.webstore.controller;
 
 import com.piechos.webstore.domain.Product;
+import com.piechos.webstore.exception.NoProductsFoundUnderCategoryException;
 import com.piechos.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,11 @@ public class ProductController {
 
     @RequestMapping("/{category}")
     public String getProductsByCategory(Model model, @PathVariable("category") String productCategory) {
-        model.addAttribute("products", productService.getProductsByCategory(productCategory));
+        List<Product> products = productService.getProductsByCategory(productCategory);
+        if(products == null || products.isEmpty()) {
+            throw new NoProductsFoundUnderCategoryException();
+        }
+        model.addAttribute("products", products);
         return "products";
     }
 
