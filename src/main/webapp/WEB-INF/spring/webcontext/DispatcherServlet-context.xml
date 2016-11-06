@@ -76,4 +76,20 @@
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="validationMessageSource" ref="messageSource"/>
     </bean>
+
+    <bean id="productValidator" class="com.piechos.webstore.validator.ProductValidator">
+        <property name="springValidators">
+            <set>
+                <ref bean="unitsInStockValidator"/>
+                <ref bean="productImageValidator"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="unitsInStockValidator" class="com.piechos.webstore.validator.UnitsInStockValidator"/>
+    <bean id="productImageValidator" class="com.piechos.webstore.validator.ProductImageValidator">
+        <property name="allowedSize">
+            <value>10000</value>
+        </property>
+    </bean>
 </beans>
