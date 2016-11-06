@@ -1,5 +1,6 @@
 package com.piechos.webstore.domain;
 
+import com.piechos.webstore.validator.Category;
 import com.piechos.webstore.validator.ProductId;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,6 +26,7 @@ public class Product {
     private String description;
     private String manufacturer;
     @NotEmpty(message = "{NotEmpty.Product.category.validation}")
+    @Category
     private String category;
     @Min(value = 0, message = "{Min.Product.unitsInStock.validation}")
     private long unitsInStock;

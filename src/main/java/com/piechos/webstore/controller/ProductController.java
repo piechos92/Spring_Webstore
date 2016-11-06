@@ -4,6 +4,7 @@ import com.piechos.webstore.domain.Product;
 import com.piechos.webstore.exception.NoProductsFoundUnderCategoryException;
 import com.piechos.webstore.exception.ProductNotFoundException;
 import com.piechos.webstore.service.ProductService;
+import com.piechos.webstore.validator.UnitsInStockValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UnitsInStockValidator unitsInStockValidator;
 
     @RequestMapping()
     public String list(Model model) {
@@ -116,6 +120,7 @@ public class ProductController {
     public void initialiseBinder(WebDataBinder binder) {
         binder.setAllowedFields("productId", "name", "unitPrice", "description", "manufacturer", "category",
                 "unitsInStock", "condition", "productImage", "productManual", "language");
+        binder.setValidator(unitsInStockValidator);
     }
 
     @ExceptionHandler
