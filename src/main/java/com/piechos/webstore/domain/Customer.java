@@ -1,22 +1,30 @@
 package com.piechos.webstore.domain;
 
-public class Customer {
+import java.io.Serializable;
 
-    private int customerId;
+public class Customer implements Serializable {
+
+    private static final long serialVersionUID = 1183780734904341964L;
+    private String customerId;
     private String name;
-    private String address;
-    private int noOfOrdersMade;
+    private Address address;
+    private String phoneNumber;
 
-    public Customer(int customerId, String name) {
+    public Customer() {
+        this.address = new Address();
+    }
+
+    public Customer(String customerId, String name) {
+        this();
         this.customerId = customerId;
         this.name = name;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -28,29 +36,49 @@ public class Customer {
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getBillingAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setBillingAddress(Address billingAddress) {
+        this.address = billingAddress;
     }
 
-    public int getNoOfOrdersMade() {
-        return noOfOrdersMade;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNoOfOrdersMade(int noOfOrdersMade) {
-        this.noOfOrdersMade = noOfOrdersMade;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
     @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", noOfOrdersMade=" + noOfOrdersMade +
-                '}';
+    public int hashCode() {
+        final int prime = 853;
+        int result = 1;
+        result = prime * result
+                + ((customerId == null) ? 0 : customerId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Customer other = (Customer) obj;
+        if (customerId == null) {
+            if (other.customerId != null)
+                return false;
+        } else if (!customerId.equals(other.customerId))
+            return false;
+        return true;
     }
 }

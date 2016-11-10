@@ -13,10 +13,7 @@ public class InMemoryCustomRepository implements CustomerRepository {
     private List<Customer> listOfCustomers = new ArrayList<>();
 
     public InMemoryCustomRepository() {
-        Customer customer1 = new Customer(1, "Mateusz Piechowiak");
-        customer1.setAddress("ul. Krucza 13, 34-234 Bytom");
-        customer1.setNoOfOrdersMade(4);
-
+        Customer customer1 = new Customer("1", "Mateusz Piechowiak");
         listOfCustomers.add(customer1);
     }
 

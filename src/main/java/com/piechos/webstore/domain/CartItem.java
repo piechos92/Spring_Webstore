@@ -1,9 +1,11 @@
 package com.piechos.webstore.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CartItem {
+public class CartItem implements Serializable {
 
+    private static final long serialVersionUID = 6436227682488840627L;
     private Product product;
     private int quantity;
     private BigDecimal totalPrice;

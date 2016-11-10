@@ -9,11 +9,13 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @XmlRootElement
-public class Product {
+public class Product implements Serializable {
 
+    private static final long serialVersionUID = 2735473059591047416L;
     @Pattern(regexp = "P[0-9]+", message = "{Pattern.Product.productId.validation}")
     @ProductId
     private String productId;
