@@ -4,33 +4,53 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
 							http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-    <var name="order" class="com.piechos.webstore.domain.Order" />
+    <var name="order" class="com.piechos.webstore.domain.Order"/>
 
     <action-state id="addCartToOrder">
         <evaluate expression="cartServiceImpl.validate(requestParameters.cartId)"
-                  result="order.cart" />
+                  result="order.cart"/>
         <transition to="InvalidCartWarning"
-                    on-exception="com.piechos.webstore.exception.InvalidCartException" />
-        <transition to="collectCustomerInfo" />
+                    on-exception="com.piechos.webstore.exception.InvalidCartException"/>
+        <transition to="collectCustomerId"/>
     </action-state>
 
-    <view-state id="collectCustomerInfo" view="collectCustomerInfo.jsp" model="order">
-        <transition on="customerInfoCollected" to="collectShippingDetail" />
+    <view-state id="collectCustomerId" view="collectCustomerId.jsp" model="order">
+        <transition on="customerIdCollected" to="checkCustomerExist"/>
     </view-state>
 
+    <decision-state id="checkCustomerExist">
+        <if test="customerServiceImpl.isCustomerExist(order.customer.customerId)"
+            then="getCustomer"
+            else="collectCustomerInfo"/>
+    </decision-state>
+
+    <view-state id="collectCustomerInfo" view="collectCustomerInfo.jsp" model="order">
+        <transition on="customerInfoCollected" to="saveCustomer"/>
+    </view-state>
+
+    <action-state id="saveCustomer">
+        <evaluate expression="customerServiceImpl.saveCustomer(order.customer)"/>
+        <transition to="collectShippingDetail"/>
+    </action-state>
+
+    <action-state id="getCustomer">
+        <evaluate expression="customerServiceImpl.getCustomer(order.customer.customerId)" result="order.customer"/>
+        <transition to="collectShippingDetail"/>
+    </action-state>
+
     <view-state id="collectShippingDetail" model="order">
-        <transition on="shippingDetailCollected" to="orderConfirmation" />
-        <transition on="backToCollectCustomerInfo" to="collectCustomerInfo" />
+        <transition on="shippingDetailCollected" to="orderConfirmation"/>
+        <transition on="backToCollectCustomerInfo" to="collectCustomerInfo"/>
     </view-state>
 
     <view-state id="orderConfirmation">
-        <transition on="orderConfirmed" to="processOrder" />
-        <transition on="backToCollectShippingDetail" to="collectShippingDetail" />
+        <transition on="orderConfirmed" to="processOrder"/>
+        <transition on="backToCollectShippingDetail" to="collectShippingDetail"/>
     </view-state>
 
     <action-state id="processOrder">
         <evaluate expression="orderServiceImpl.saveOrder(order)" result="order.orderId"/>
-        <transition to="thankCustomer" />
+        <transition to="thankCustomer"/>
     </action-state>
 
     <view-state id="InvalidCartWarning">
@@ -43,10 +63,10 @@
 
     <end-state id="endState"/>
 
-    <end-state id="cancelCheckout" view = "checkOutCancelled.jsp"/>
+    <end-state id="cancelCheckout" view="checkOutCancelled.jsp"/>
 
     <global-transitions>
-        <transition on = "cancel" to="cancelCheckout" />
+        <transition on="cancel" to="cancelCheckout"/>
     </global-transitions>
 
 </flow>
