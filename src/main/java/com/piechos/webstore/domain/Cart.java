@@ -47,10 +47,9 @@ public class Cart implements Serializable {
         if(cartItems.containsKey(productId)) {
             CartItem existingCarItem = cartItems.get(productId);
             existingCarItem.setQuantity(existingCarItem.getQuantity() + cartItem.getQuantity());
-            //TODO updateTotalPrice
+            existingCarItem.updateTotalPrice();
             cartItems.put(productId, existingCarItem);
         } else {
-            //TODO updateTotalPrice
             cartItems.put(productId, cartItem);
         }
         updateGrandTotal();
