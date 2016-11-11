@@ -10,60 +10,53 @@
     <title>Produkt</title>
 </head>
 <body>
-<section>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Produkt</h1>
+    <section class="container" ng-app="cartApp">
+        <div class="row">
+            <div class="col-md-5">
+                <img src="<c:url value="/resource/images/${product.productId}.jpeg"/>" alt="image" style="width:100%"/>
+            </div>
+            <div class="col-md-5">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>
+                    <strong>
+                        <spring:message code="product.p.productId"/>:
+                    </strong>
+                    <span class="label label-warning">${product.productId}</span>
+                </p>
+                <p>
+                    <strong>
+                        <spring:message code="product.p.manufacturer"/>
+                    </strong>: ${product.manufacturer}
+                </p>
+                <p>
+                    <strong>
+                        <spring:message code="product.p.category"/>
+                    </strong>: ${product.category}
+                </p>
+                <p>
+                    <strong>
+                        <spring:message code="product.p.condition"/>
+                    </strong>: ${product.condition}
+                </p>
+                <p>
+                    <strong>
+                        <spring:message code="product.p.unitsInStock"/>
+                    </strong>: ${product.unitsInStock}
+                </p>
+                <h4>${product.unitPrice} PLN</h4>
+                <p ng-controller="cartCtrl">
+                    <a href="#" class="btn btn-warning btn-large" ng-click="addToCart('${product.productId}')">
+                    <span class="glyphicon-shopping-cart glyphicon"></span> Zamów teraz </a>
+                    <a href="<spring:url value="/cart" />" class="btn btn-default">
+                        <span class="glyphicon-hand-right glyphicon">Koszyk</span>
+                    </a>
+                    <a href='<spring:url value="/products"/>' class="btn btn-default">
+                        <span class="glyphicon-hand-left glyphicon">Wstecz</span>
+                    </a>
+                </p>
+            </div>
         </div>
-    </div>
-</section>
-<section class="container" ng-app="cartApp">
-    <div class="row">
-        <div class="col-md-5">
-            <img src="<c:url value="/resource/images/${product.productId}.jpeg"/>" alt="image" style="width:100%"/>
-        </div>
-        <div class="col-md-5">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <p>
-                <strong>
-                    <spring:message code="product.p.productId"/>:
-                </strong>
-                <span class="label label-warning">${product.productId}</span>
-            </p>
-            <p>
-                <strong>
-                    <spring:message code="product.p.manufacturer"/>
-                </strong>: ${product.manufacturer}
-            </p>
-            <p>
-                <strong>
-                    <spring:message code="product.p.category"/>
-                </strong>: ${product.category}
-            </p>
-            <p>
-                <strong>
-                    <spring:message code="product.p.condition"/>
-                </strong>: ${product.condition}
-            </p>
-            <p>
-                <strong>
-                    <spring:message code="product.p.unitsInStock"/>
-                </strong>: ${product.unitsInStock}
-            </p>
-            <h4>${product.unitPrice} PLN</h4>
-            <p ng-controller="cartCtrl">
-                <a href="#" class="btn btn-warning btn-large" ng-click="addToCart('${product.productId}')">
-                <span class="glyphicon-shopping-cart glyphicon"></span> Zamów teraz </a>
-                <a href="<spring:url value="/cart" />" class="btn btn-default">
-                    <span class="glyphicon-hand-right glyphicon">Koszyk</span>
-                </a>
-                <a href='<spring:url value="/products"/>' class="btn btn-default">
-                    <span class="glyphicon-hand-left glyphicon">Wstecz</span>
-                </a>
-            </p>
-        </div>
-    </div>
-</section>
+    </section>
 </body>
 </html>

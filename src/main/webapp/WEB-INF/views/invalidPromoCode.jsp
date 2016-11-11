@@ -9,13 +9,6 @@
 </head>
 <body>
     <section>
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="alert alert-danger">Błędny kod promocyjny</h1>
-            </div>
-        </div>
-    </section>
-    <section>
         <div class="container">
             <p>
                 <a href="<spring:url value="/products" />" class="btn btn-primary">
